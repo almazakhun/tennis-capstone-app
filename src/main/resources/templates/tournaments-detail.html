@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament Detail</title>
+</head>
+<body layout:fragment="body">
+    <div class="container">
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Welcome to Blog Home!</h1>
+                    <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+                </div>
+            </div>
+        </header>
+        <!-- Tournament Information -->
+        <div class="row">
+            <div class="col-md-8">
+                <h2 th:text="${tournament.name}">Tournament Name</h2>
+            </div>
+        </div>
+
+        <form role="form" method="post" th:action="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}">
+            <button type="submit" class="btn btn-primary mt-3 mb-3">Register</button>
+        </form>
+
+    </div>
+</body>
+</html>
