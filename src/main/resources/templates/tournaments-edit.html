@@ -9,7 +9,7 @@
 </head>
 <body layout:fragment="body">
 <div class="container">
-    <form role="form" method="post" th:action="@{/tournaments/{id}/edit(id=${tournamentDto.id})}" th:object="${tournamentDto}">
+    <form role="form" method="post" th:action="@{/tournaments/{id}/edit(id=${tournament.id})}" th:object="${tournament}">
         <div class="form-group mt-3">
             <label for="name">Name</label>
             <input

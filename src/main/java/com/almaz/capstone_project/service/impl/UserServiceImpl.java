@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        user.setRoles(Arrays.asList(roleRepository.findByName("USER")));
+        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

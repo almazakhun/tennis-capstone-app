@@ -2,13 +2,16 @@ package com.almaz.capstone_project.controller;
 
 import com.almaz.capstone_project.model.Category;
 import com.almaz.capstone_project.model.Tournament;
+import com.almaz.capstone_project.model.User;
 import com.almaz.capstone_project.security.SecurityUtil;
 import com.almaz.capstone_project.service.CategoryService;
 import com.almaz.capstone_project.service.TournamentService;
+import com.almaz.capstone_project.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +19,12 @@ import java.util.List;
 public class TournamentController {
     private TournamentService tournamentService;
     private CategoryService categoryService;
+    private UserService userService;
 
-    public TournamentController(TournamentService tournamentService, CategoryService categoryService) {
+    public TournamentController(TournamentService tournamentService, CategoryService categoryService, UserService userService) {
         this.tournamentService = tournamentService;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     @GetMapping("/tournaments")
@@ -34,6 +39,8 @@ public class TournamentController {
     public String tournamentDetail(@PathVariable long id, Model model) {
         Tournament tournament = tournamentService.findTournamentById(id);
         model.addAttribute("tournament", tournament);
+
+        User user = userService.findByUsername(SecurityUtil.getSessionUser());
         return "tournaments-detail";
     }
 

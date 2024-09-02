@@ -61,6 +61,7 @@ public class TournamentServiceImpl implements TournamentService {
         Tournament tournament = tournamentRepository.findById(id).get();
         String username = SecurityUtil.getSessionUser();
         User user = userRepository.findByUsername(username);
+        user.registerPlayer(registration);
         registration.setUser(user);
         tournament.addRegistration(registration);
         tournamentRepository.save(tournament);

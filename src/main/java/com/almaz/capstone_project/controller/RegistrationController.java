@@ -21,7 +21,7 @@ public class RegistrationController {
         this.tournamentService = tournamentService;
     }
 
-    @PostMapping("/registrations/{tournament_id}/new")
+    @GetMapping("/registrations/{tournament_id}/new")
     public String createRegistrationForm(@PathVariable long tournament_id) {
         Registration registration = new Registration();
         tournamentService.addRegistration(tournament_id, registration);

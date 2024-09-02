@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -23,29 +24,25 @@
                         </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           th:href="@{/categories/new}">Create Category
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"  class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
+                            <li><a class="dropdown-item" th:href="@{/tournaments/new}">Create Tournament</a></li>
+                            <li><a class="dropdown-item" th:href="@{/categories/new}">Create Category</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()"  class="nav-item">
+                        <a class="nav-link btn btn-primary"
+                           th:href="@{/login}">Login
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           th:classappend="${page == 'tournaments-create'} ? 'active'"
-                           th:href="@{/tournaments/new}">Create Tournament
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
+                    <li sec:authorize="!isAuthenticated()"  class="nav-item">
+                        <a class="nav-link btn btn-primary"
                            th:href="@{/register}">Register
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           th:href="@{/login}">login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
+                    <li sec:authorize="isAuthenticated()"  class="nav-item">
+                        <a class="nav-link btn btn-primary"
                            th:href="@{/logout}">Logout
                         </a>
                     </li>
@@ -53,7 +50,6 @@
             </div>
         </div>
     </nav>
-
     <!-- Page Content-->
     <div layout:fragment="body"></div>
 

@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -9,26 +10,41 @@
 </head>
 <body layout:fragment="body">
     <div class="container">
-        <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
-                <div class="text-center my-5">
-                    <h1 class="fw-bolder">Welcome to Blog Home!</h1>
-                    <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">[[${tournament.name}]]</h5>
+
+                <div class="mt-4">
+                    <!-- Register button for ROLE_USER -->
+                    <a th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
+                       class="btn btn-primary me-2"
+                       sec:authorize="hasRole('ROLE_USER')">
+                        Register
+                    </a>
+
+                    <!-- Withdraw button for ROLE_USER -->
+                    <a th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
+                       class="btn btn-warning me-2"
+                       sec:authorize="hasRole('ROLE_USER')">
+                        Withdraw
+                    </a>
+
+                    <!-- Update button for ROLE_ADMIN -->
+                    <a th:href="@{/tournaments/{id}/edit(id=${tournament.id})}"
+                       class="btn btn-success me-2"
+                       sec:authorize="hasRole('ROLE_ADMIN')">
+                        Update
+                    </a>
+
+                    <!-- Delete button for ROLE_ADMIN -->
+                    <a th:href="@{/tournaments/{id}/delete(id=${tournament.id})}"
+                       class="btn btn-danger"
+                       sec:authorize="hasRole('ROLE_ADMIN')">
+                        Delete
+                    </a>
                 </div>
             </div>
-        </header>
-        <!-- Tournament Information -->
-        <div class="row">
-            <div class="col-md-8">
-                <h2 th:text="${tournament.name}">Tournament Name</h2>
-            </div>
         </div>
-
-        <form role="form" method="post" th:action="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}">
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Register</button>
-        </form>
-
     </div>
 </body>
 </html>
