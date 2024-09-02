@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,14 @@ public class TournamentController {
     @GetMapping("/tournaments/{id}")
     public String tournamentDetail(@PathVariable long id, Model model) {
         Tournament tournament = tournamentService.findTournamentById(id);
+        // Format dates as strings
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedStartDate = tournament.getStartDate().format(formatter);
+        String formattedEndDate = tournament.getEndDate().format(formatter);
+
         model.addAttribute("tournament", tournament);
+        model.addAttribute("formattedStartDate", formattedStartDate);
+        model.addAttribute("formattedEndDate", formattedEndDate);
 
         User currentUser = userService.findByUsername(SecurityUtil.getSessionUser());
         boolean isRegistered = registrationService.isUserRegisteredForTournament(currentUser, tournament);
@@ -73,7 +81,6 @@ public class TournamentController {
                 ? categoryService.findCategoriesByIds(categoryIds)
                 : new ArrayList<>();
 
-        tournament.setCategories(categories);
         tournament.setCategories(categories);
         tournamentService.createTournament(tournament);
         return "redirect:/tournaments";

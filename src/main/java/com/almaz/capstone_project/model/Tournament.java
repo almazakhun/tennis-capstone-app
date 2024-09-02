@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,12 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    private String description;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private String location;
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade={CascadeType.PERSIST ,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
             name="tournament_category",
             joinColumns = @JoinColumn(name="tournament_id"),

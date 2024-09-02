@@ -9,44 +9,51 @@
     <title>Tournament Detail</title>
 </head>
 <body layout:fragment="body">
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">[[${tournament.name}]]</h5>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" th:text="${tournament.name}"></h2>
+                    <p class="card-text"><strong>Description:</strong> <span th:text="${tournament.description}"></span></p>
+                    <p class="card-text"><strong>Start Date:</strong> <span th:text="${formattedStartDate}"></span></p>
+                    <p class="card-text"><strong>End Date:</strong> <span th:text="${formattedEndDate}"></span></p>
+                    <p class="card-text"><strong>Location:</strong> <span th:text="${tournament.location}"></span></p>
+                    <div class="mt-3">
+                        <!-- Register button for ROLE_USER -->
+                        <a th:if="${!isRegistered}"
+                           th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
+                           class="btn btn-primary me-2"
+                           sec:authorize="hasRole('ROLE_USER')">
+                            Register
+                        </a>
 
-                <div class="mt-4">
-                    <!-- Register button for ROLE_USER -->
-                    <a th:if="${!isRegistered}"
-                       th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
-                       class="btn btn-primary me-2"
-                       sec:authorize="hasRole('ROLE_USER')">
-                        Register
-                    </a>
+                        <!-- Withdraw button for ROLE_USER -->
+                        <a th:if="${isRegistered}"
+                           th:href="@{/registrations/{tournament_id}/withdraw(tournament_id=${tournament.id})}"
+                           class="btn btn-warning me-2"
+                           sec:authorize="hasRole('ROLE_USER')">
+                            Withdraw
+                        </a>
 
-                    <!-- Withdraw button for ROLE_USER -->
-                    <a th:if="${isRegistered}"
-                       th:href="@{/registrations/{tournament_id}/withdraw(tournament_id=${tournament.id})}"
-                       class="btn btn-warning me-2"
-                       sec:authorize="hasRole('ROLE_USER')">
-                        Withdraw
-                    </a>
+                        <!-- Update button for ROLE_ADMIN -->
+                        <a th:href="@{/tournaments/{id}/edit(id=${tournament.id})}"
+                           class="btn btn-success me-2"
+                           sec:authorize="hasRole('ROLE_ADMIN')">
+                            Update
+                        </a>
 
-                    <!-- Update button for ROLE_ADMIN -->
-                    <a th:href="@{/tournaments/{id}/edit(id=${tournament.id})}"
-                       class="btn btn-success me-2"
-                       sec:authorize="hasRole('ROLE_ADMIN')">
-                        Update
-                    </a>
-
-                    <!-- Delete button for ROLE_ADMIN -->
-                    <a th:href="@{/tournaments/{id}/delete(id=${tournament.id})}"
-                       class="btn btn-danger"
-                       sec:authorize="hasRole('ROLE_ADMIN')">
-                        Delete
-                    </a>
+                        <!-- Delete button for ROLE_ADMIN -->
+                        <a th:href="@{/tournaments/{id}/delete(id=${tournament.id})}"
+                           class="btn btn-danger"
+                           sec:authorize="hasRole('ROLE_ADMIN')">
+                            Delete
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
