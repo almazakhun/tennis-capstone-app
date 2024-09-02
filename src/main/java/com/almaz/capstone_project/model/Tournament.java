@@ -1,11 +1,13 @@
 package com.almaz.capstone_project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,15 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotEmpty(message = "Please provide the name.")
     private String name;
+    @NotEmpty(message = "Please provide the description.")
     private String description;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    @NotEmpty(message = "Please select the start date.")
+    private LocalDate startDate;
+    @NotEmpty(message = "Please select the end date.")
+    private LocalDate endDate;
+    @NotEmpty(message = "Please provide the location.")
     private String location;
 
     @ManyToMany(cascade={CascadeType.PERSIST ,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

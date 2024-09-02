@@ -34,6 +34,6 @@ public class UserController {
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
         userService.createUser(user);
-        return "redirect:/tournaments?success";
+        return "redirect:/login?success";
     }
 }
