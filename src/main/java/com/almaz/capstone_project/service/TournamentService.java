@@ -18,7 +18,4 @@ public interface TournamentService {
     void delete(long id);
 
     void addCategory(long id, Category category);
-
-    void addRegistration(long id, Registration registration);
-    void removeRegistration(long id, Registration registration);
 }

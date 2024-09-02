@@ -19,4 +19,8 @@ public class Registration {
     @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,  CascadeType.REFRESH})
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "tournament_id", nullable = false)
+    private Tournament tournament;
 }

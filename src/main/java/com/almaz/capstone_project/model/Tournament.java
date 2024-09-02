@@ -28,8 +28,7 @@ public class Tournament {
     )
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name="tournament_id")
+    @OneToMany(mappedBy="tournament", cascade= CascadeType.ALL, orphanRemoval = true)
     private List<Registration> registrations = new ArrayList<>();
 
     public void addCategory(Category category) {

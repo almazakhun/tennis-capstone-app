@@ -5,6 +5,7 @@ import com.almaz.capstone_project.model.Tournament;
 import com.almaz.capstone_project.model.User;
 import com.almaz.capstone_project.security.SecurityUtil;
 import com.almaz.capstone_project.service.CategoryService;
+import com.almaz.capstone_project.service.RegistrationService;
 import com.almaz.capstone_project.service.TournamentService;
 import com.almaz.capstone_project.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ public class TournamentController {
     private TournamentService tournamentService;
     private CategoryService categoryService;
     private UserService userService;
+    private RegistrationService registrationService;
 
-    public TournamentController(TournamentService tournamentService, CategoryService categoryService, UserService userService) {
+    public TournamentController(TournamentService tournamentService, CategoryService categoryService, UserService userService, RegistrationService registrationService) {
         this.tournamentService = tournamentService;
         this.categoryService = categoryService;
         this.userService = userService;
+        this.registrationService = registrationService;
     }
 
     @GetMapping("/tournaments")
@@ -40,7 +43,10 @@ public class TournamentController {
         Tournament tournament = tournamentService.findTournamentById(id);
         model.addAttribute("tournament", tournament);
 
-        User user = userService.findByUsername(SecurityUtil.getSessionUser());
+        User currentUser = userService.findByUsername(SecurityUtil.getSessionUser());
+        boolean isRegistered = registrationService.isUserRegisteredForTournament(currentUser, tournament);
+        model.addAttribute("isRegistered", isRegistered);
+
         return "tournaments-detail";
     }
 

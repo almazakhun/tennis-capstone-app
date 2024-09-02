@@ -16,14 +16,16 @@
 
                 <div class="mt-4">
                     <!-- Register button for ROLE_USER -->
-                    <a th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
+                    <a th:if="${!isRegistered}"
+                       th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
                        class="btn btn-primary me-2"
                        sec:authorize="hasRole('ROLE_USER')">
                         Register
                     </a>
 
                     <!-- Withdraw button for ROLE_USER -->
-                    <a th:href="@{/registrations/{tournament_id}/new(tournament_id=${tournament.id})}"
+                    <a th:if="${isRegistered}"
+                       th:href="@{/registrations/{tournament_id}/withdraw(tournament_id=${tournament.id})}"
                        class="btn btn-warning me-2"
                        sec:authorize="hasRole('ROLE_USER')">
                         Withdraw
