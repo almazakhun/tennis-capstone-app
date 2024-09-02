@@ -8,73 +8,99 @@
     <title>Tournament Create</title>
 </head>
 <body layout:fragment="body">
-    <div class="container">
-        <form role="form" method="post" th:action="@{/tournaments/new}" th:object="${tournament}">
-            <div class="form-group mt-3">
-                <label for="name">Name</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        name="name"
-                        th:field="*{name}"
-                        placeholder="Name">
-            </div>
-            <div class="form-group mt-3">
-                <label for="description">Description</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="description"
-                        name="description"
-                        th:field="*{description}"
-                        placeholder="Description">
-            </div>
-            <div class="form-group mt-3">
-                <label for="startDate">Start Date</label>
-                <input
-                        type="datetime-local"
-                        class="form-control"
-                        id="startDate"
-                        name="startDate"
-                        th:field="*{startDate}"
-                        placeholder="Start Date">
-            </div>
-            <div class="form-group mt-3">
-                <label for="endDate">End Date</label>
-                <input
-                        type="datetime-local"
-                        class="form-control"
-                        id="endDate"
-                        name="endDate"
-                        th:field="*{endDate}"
-                        placeholder="End Date">
-            </div>
-            <div class="form-group mt-3">
-                <label for="location">Location</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="location"
-                        name="location"
-                        th:field="*{location}"
-                        placeholder="Location">
-            </div>
-            <!-- Categories Checkboxes -->
-            <label>Select Categories:</label>
-            <div class="form-check" th:each="category : ${categories}">
-                <input class="form-check-input"
-                       type="checkbox"
-                       th:value="${category.id}"
-                       th:id="'category_' + ${category.id}"
-                       name="categoryIds">
-                <label class="form-check-label" th:for="'category_' + ${category.id}">
-                    <span th:text="${category.name}">Category Name</span>
-                </label>
-            </div>
+<div class="container py-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Create Tournament</h3>
+        </div>
+        <div class="card-body">
+            <form role="form" method="post" th:action="@{/tournaments/new}" th:object="${tournament}">
 
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Create</button>
-        </form>
+                <!-- Name -->
+                <div class="form-group mb-3">
+                    <label for="name" class="form-label">Tournament Name</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            th:field="*{name}"
+                            placeholder="Enter the tournament name">
+                </div>
+
+                <!-- Description -->
+                <div class="form-group mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea
+                            class="form-control"
+                            id="description"
+                            name="description"
+                            th:field="*{description}"
+                            rows="3"
+                            placeholder="Enter the tournament description"></textarea>
+                </div>
+
+                <!-- Start Date -->
+                <div class="form-group mb-3">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="startDate"
+                            name="startDate"
+                            th:field="*{startDate}">
+                </div>
+
+                <!-- End Date -->
+                <div class="form-group mb-3">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="endDate"
+                            name="endDate"
+                            th:field="*{endDate}">
+                </div>
+
+                <!-- Location -->
+                <div class="form-group mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="location"
+                            name="location"
+                            th:field="*{location}"
+                            placeholder="Enter the tournament location">
+                </div>
+
+                <!-- Categories Checkboxes -->
+                <div class="mb-3">
+                    <label class="form-label">Select Categories:</label>
+                    <div class="form-check" th:each="category : ${categories}">
+                        <input
+                                class="form-check-input"
+                                type="checkbox"
+                                th:value="${category.id}"
+                                th:id="'category_' + ${category.id}"
+                                name="categoryIds">
+                        <label
+                                class="form-check-label ms-2"
+                                th:for="'category_' + ${category.id}">
+                            <span th:text="${category.name}">Category Name</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Create Tournament</button>
+                </div>
+
+            </form>
+        </div>
     </div>
+</div>
+
 </body>
 </html>
