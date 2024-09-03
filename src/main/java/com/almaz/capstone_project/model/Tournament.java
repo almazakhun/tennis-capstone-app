@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +24,7 @@ public class Tournament {
     private String name;
     @NotEmpty(message = "Please provide the description.")
     private String description;
-    @NotEmpty(message = "Please select the start date.")
     private LocalDate startDate;
-    @NotEmpty(message = "Please select the end date.")
     private LocalDate endDate;
     @NotEmpty(message = "Please provide the location.")
     private String location;

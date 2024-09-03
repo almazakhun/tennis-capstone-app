@@ -8,8 +8,10 @@ import com.almaz.capstone_project.service.CategoryService;
 import com.almaz.capstone_project.service.RegistrationService;
 import com.almaz.capstone_project.service.TournamentService;
 import com.almaz.capstone_project.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -88,7 +90,12 @@ public class TournamentController {
     }
 
     @PostMapping("/tournaments/{id}/edit")
-    public String updateTournament(@PathVariable long id, @ModelAttribute Tournament tournament) {
+    public String updateTournament(@PathVariable long id,
+                                   @Valid @ModelAttribute Tournament tournament,
+                                   BindingResult result) {
+        if (result.hasErrors()) {
+            return "tournaments-edit";
+        }
         tournamentService.updateTournament(tournament);
         return "redirect:/tournaments";
     }

@@ -26,6 +26,7 @@
                             name="name"
                             th:field="*{name}"
                             placeholder="Enter the tournament name">
+                    <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                 </div>
 
                 <!-- Description -->
@@ -38,6 +39,7 @@
                             th:field="*{description}"
                             rows="3"
                             placeholder="Enter the tournament description"></textarea>
+                    <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
                 </div>
 
                 <!-- Start Date -->
@@ -72,6 +74,7 @@
                             name="location"
                             th:field="*{location}"
                             placeholder="Enter the tournament location">
+                    <p th:if="${#fields.hasErrors('location')}" class="text-danger" th:errors="*{location}"></p>
                 </div>
 
                 <!-- Categories Checkboxes -->

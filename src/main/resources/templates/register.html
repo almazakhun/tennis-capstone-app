@@ -8,51 +8,80 @@
     <title>User Create</title>
 </head>
 <body layout:fragment="body">
-    <div class="container">
-        <form role="form" method="post" th:action="@{/register}" th:object="${user}">
-            <div class="form-group mt-3">
-                <label for="name">Name</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        name="name"
-                        th:field="*{name}"
-                        placeholder="Name">
-            </div>
-            <div class="form-group mt-3">
-                <label for="username">Username</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        name="username"
-                        th:field="*{username}"
-                        placeholder="Username">
-            </div>
-            <div class="form-group mt-3">
-                <label for="email">Email</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        th:field="*{email}"
-                        placeholder="Email">
-            </div>
-            <div class="form-group mt-3">
-                <label for="password">Password</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        th:field="*{password}"
-                        placeholder="Password">
-            </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Register</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Error Message -->
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Registration failed. Please try again.
+                    </div>
 
-            <button type="submit" class="btn btn-primary mt-3 mb-3">Register</button>
-        </form>
+                    <!-- Registration Form -->
+                    <form role="form" method="post" th:action="@{/register}">
+
+                        <!-- Name -->
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Enter your full name"
+                                    required>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Enter your username"
+                                    required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    required>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 </html>
