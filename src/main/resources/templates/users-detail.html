@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournament Detail</title>
+</head>
+<body layout:fragment="body">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="card-title mb-3" th:text="${user.name}"></h2>
+                    <p class="card-text"><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                    <p class="card-text"><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+<!--                    <a href="#" class="btn btn-primary mt-3">Edit Profile</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

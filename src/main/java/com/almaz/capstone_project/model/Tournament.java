@@ -20,13 +20,10 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotEmpty(message = "Please provide the name.")
     private String name;
-    @NotEmpty(message = "Please provide the description.")
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
-    @NotEmpty(message = "Please provide the location.")
     private String location;
 
     @ManyToMany(cascade={CascadeType.PERSIST ,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

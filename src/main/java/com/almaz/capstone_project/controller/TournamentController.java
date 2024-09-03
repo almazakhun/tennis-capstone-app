@@ -8,14 +8,13 @@ import com.almaz.capstone_project.service.CategoryService;
 import com.almaz.capstone_project.service.RegistrationService;
 import com.almaz.capstone_project.service.TournamentService;
 import com.almaz.capstone_project.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class TournamentController {
@@ -71,11 +70,15 @@ public class TournamentController {
     }
 
     @PostMapping("/tournaments/new")
-    public String saveTournament(@ModelAttribute Tournament tournament, @RequestParam(required = false) List<Long> categoryIds) {
+    public String saveTournament(@ModelAttribute Tournament tournament, @RequestParam(required = false) List<Long> categoryIds, Model model) {
+        if (categoryIds == null || categoryIds.isEmpty()) {
+            model.addAttribute("error", "Please select at least one category.");
+            model.addAttribute("tournament", tournament);
+            model.addAttribute("categories", categoryService.findAllCategories());
+            return "tournaments-create";
+        }
         // If categoryIds is null, initialize it as an empty list
-        List<Category> categories = (categoryIds != null)
-                ? categoryService.findCategoriesByIds(categoryIds)
-                : new ArrayList<>();
+        List<Category> categories = categoryService.findCategoriesByIds(categoryIds);
 
         tournament.setCategories(categories);
         tournamentService.createTournament(tournament);
@@ -85,19 +88,36 @@ public class TournamentController {
     @GetMapping("/tournaments/{id}/edit")
     public String editTournamentForm(@PathVariable long id, Model model) {
         Tournament tournament = tournamentService.findTournamentById(id);
+        List<Category> categories = categoryService.findAllCategories();
+        List<Category> selectedCategories = tournament.getCategories();
+
         model.addAttribute("tournament", tournament);
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategoryIds", selectedCategories.stream()
+                .map(Category::getId)
+                .collect(Collectors.toSet()));
         return "tournaments-edit";
     }
 
     @PostMapping("/tournaments/{id}/edit")
     public String updateTournament(@PathVariable long id,
-                                   @Valid @ModelAttribute Tournament tournament,
-                                   BindingResult result) {
-        if (result.hasErrors()) {
-            return "tournaments-edit";
+                                   @ModelAttribute Tournament tournament,
+                                   @RequestParam(required = false) List<Long> categoryIds,
+                                   Model model) {
+        if (categoryIds == null || categoryIds.isEmpty()) {
+            model.addAttribute("error", "Please select at least one category.");
+            model.addAttribute("tournament", tournament);
+            model.addAttribute("categories", categoryService.findAllCategories());
+            model.addAttribute("selectedCategoryIds", new HashSet<>());
+            return "tournaments-edit"; // Return to the edit form with error message
         }
+
+        // Process the valid data
+        List<Category> categories = categoryService.findCategoriesByIds(categoryIds);
+        tournament.setCategories(categories);
         tournamentService.updateTournament(tournament);
-        return "redirect:/tournaments";
+
+        return "redirect:/tournaments/{id}";
     }
 
 

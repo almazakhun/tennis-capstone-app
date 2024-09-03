@@ -1,6 +1,7 @@
 package com.almaz.capstone_project.controller;
 
 import com.almaz.capstone_project.model.User;
+import com.almaz.capstone_project.security.SecurityUtil;
 import com.almaz.capstone_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,5 +36,12 @@ public class UserController {
     public String register(@ModelAttribute User user) {
         userService.createUser(user);
         return "redirect:/login?success";
+    }
+
+    @GetMapping("/about-me")
+    public String getUser(Model model) {
+        User user = userService.findByUsername(SecurityUtil.getSessionUser());
+        model.addAttribute("user", user);
+        return "users-detail";
     }
 }
