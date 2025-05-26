@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
     private UserService userService;
@@ -34,6 +36,15 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
+        User existingUsername = userService.findByUsername(user.getUsername());
+        Optional<User> existingEmail = userService.findByEmail(user.getEmail());
+        if (existingUsername != null) {
+            return "redirect:/register?fail";
+        }
+        if (existingEmail.isPresent()) {
+            return "redirect:/register?fail";
+        }
+
         userService.createUser(user);
         return "redirect:/login?success";
     }

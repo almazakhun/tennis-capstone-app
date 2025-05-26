@@ -1,12 +1,9 @@
 package com.almaz.capstone_project.service.impl;
 
 import com.almaz.capstone_project.model.Category;
-import com.almaz.capstone_project.model.Registration;
 import com.almaz.capstone_project.model.Tournament;
-import com.almaz.capstone_project.model.User;
 import com.almaz.capstone_project.repository.TournamentRepository;
 import com.almaz.capstone_project.repository.UserRepository;
-import com.almaz.capstone_project.security.SecurityUtil;
 import com.almaz.capstone_project.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
