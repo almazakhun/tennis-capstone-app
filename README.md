@@ -32,7 +32,7 @@ Additionally, all users can view a public list of upcoming tournaments without l
 
 ### Screenshot
 ![Tournament List](screenshot.png)
-![Tournament List](screenshot.png)
+![Tournament List](screenshot_register.png)
 
 ## Getting Started
 
