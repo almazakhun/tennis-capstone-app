@@ -30,7 +30,8 @@ Additionally, all users can view a public list of upcoming tournaments without l
 - Thymeleaf  
 - Bootstrap
 
-### Tournament List Page
+### Screenshot
+![Tournament List](screenshot.png)
 ![Tournament List](screenshot.png)
 
 ## Getting Started
