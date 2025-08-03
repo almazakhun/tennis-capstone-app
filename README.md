@@ -28,7 +28,10 @@ Additionally, all users can view a public list of upcoming tournaments without l
 - Spring Security  
 - Maven  
 - Thymeleaf  
-- Bootstrap  
+- Bootstrap
+
+### Tournament List Page
+![Tournament List](screenshot.png)
 
 ## Getting Started
 
